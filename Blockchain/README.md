@@ -1,4 +1,4 @@
-# Davilaps-poa
+# Setup Parity POA
 
 Setup Parity PoA network with 3 authorities and 3 members.
 
