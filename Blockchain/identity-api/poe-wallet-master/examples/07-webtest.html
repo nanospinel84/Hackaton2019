@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <script src="../dist/poe-wallet.js"></script>
+  </head>
+  <body>
+    <div id="log"></div>
+    <script>
+
+    function log() {
+      let args = [];
+
+      for (var i = 0; i < arguments.length; i++){
+        args.push(arguments[i])
+      }
+      let text = args.join(' ')
+      document.querySelector('#log').innerHTML += '<br>' + text + '<br>'
+      console.log(text)
+    }
+
+    log(':: 07 - Comparing V3 vs AES-CTR wallet storage on browser::')
+
+    // We assign each lib to a single var
+    const walletUtils = poeWallet.util
+    const Wallet = poeWallet.Wallet
+
+    // We generate a new unique mnemonic and masterWallet for this example.
+    let mnemonic = walletUtils.createMnemonic()
+    let masterWallet = new Wallet(mnemonic)
+    // SDEK, Self Descriptive Encrypted Keypair
+    let pwd = 'q1w2e3r4'
+
+    let tbg = Date.now()
+
+    let v3String = masterWallet.toV3String(pwd)
+    log('v3String', v3String)
+    let v3Wallet = new Wallet(v3String, pwd)
+
+    log('V3 export & import took', Date.now() - tbg, '(ms)')
+    log('Did wallet persist?', v3Wallet.address('string') === masterWallet.address('string'))
+
+    tbg = Date.now()
+
+    let SDEKString = masterWallet.toSDEK(pwd)
+    log('SDEKString', SDEKString)
+    let SDEKWallet = new Wallet(SDEKString, pwd)
+
+    log('SDEK export & import took', Date.now() - tbg, '(ms)')
+    log('Did SDEK wallet persist?', SDEKWallet.address('string') === masterWallet.address('string'))
+
+    </script>
+  </body>
+</html>

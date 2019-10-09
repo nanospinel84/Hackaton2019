@@ -1,0 +1,46 @@
+{
+  "name": "poe-wallet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc mocha",
+    "start": "node index.js",
+    "lint": "eslint ./ --cache --ignore-pattern .gitignore",
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "base-64": "^0.1.0",
+    "bip39": "^2.5.0",
+    "crypto-js": "^3.1.9-1",
+    "ethereumjs-util": "^5.2.0",
+    "hdkey": "^1.0.0",
+    "js-base64": "^2.4.5",
+    "js-sha3": "^0.7.0",
+    "pbkdf2": "^3.0.16",
+    "pbkdf2-password": "^1.2.1",
+    "random-bytes": "^1.0.0",
+    "superagent": "^3.8.3",
+    "uuid": "^3.2.1"
+  },
+  "pre-commit": [
+    "precommit-msg",
+    "lint",
+    "test"
+  ],
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^5.0.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-mocha": "^5.0.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "pre-commit": "^1.2.2"
+  }
+}
