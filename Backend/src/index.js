@@ -1,34 +1,31 @@
 import express from 'express';
-import userRoutes from './routes/users';
-
-
-
-//initializations
 const app = express();
 
-//Settings
+
+////Conexcion on base de datos mongo
+import mongo from 'mongoose';
+mongo.connect('mongodb://localhost/mongograph')
+.then(() => console.log('mongodb conectado'))
+.catch(err => console.log(err));
+
+import Server from './Schema';
+
+
+
+
+Server.applyMiddleware({
+    app
+  });
+
+
+
+///Servidor escuchando en el puerto 3000
 app.set('port', process.env.PORT || 3000);
 
-//Midlewares
-app.use(express.json());
-
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-    next();
-});
 
 
 
-
-//Routes
-app.use(userRoutes);
-
-
-//Starting the server
+// start the server
 app.listen(app.get('port'), () => {
-    console.log(`server on port ${app.get('port')}`);
-
-});
+    console.log('Servidor en el puerto', app.get('port'));
+  });
